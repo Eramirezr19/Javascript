@@ -104,6 +104,7 @@ var Calculadora = {
       resetear();
     }
     }
+
     suma.onclick = function (e) {
       operandoa = resultado.textContent;
       operacion = "+";
@@ -125,63 +126,88 @@ var Calculadora = {
       limpiar();
     }
 
-    igual.onclick = function (e) {
-      operandob = resultado.textContent;
-      resolver();
+    igual.onclick = function (e) { if(count_clic >= 1){
+operandoa = resultado.textContent;
+resolver();}else{ operandob = resultado.textContent;
+  resolver();
+}
     }
 
     signo.onclick = function(e){
       if(signo && resultado.innerHTML != "0"){
-          resultado.innerHTML = "-" + resultado.innerHTML
+          resultado.innerHTML = "-1" * resultado.innerHTML
           }else{
           resultado.innerHTML = resultado.innerHTML.slice(-1);
-          }
+        }
     }
+
+
+
 
   }
 }
 
 function limpiar() {
   resultado.textContent = "";
+  count_clic=0;
 }
 function resetear() {
   resultado.textContent = "";
   operandoa = 0;
   operandob = 0;
   operacion = 0;
+  count_clic =0;
 }
+var count_clic =0;
+
+function contador(){
+count_clic +=1;
+};
+
 function resolver() {
-  var res = 0;
+var res = 0;
+contador();
+switch (operacion) {
+case "+":
+if (count_clic <= 1) {
+res = parseFloat(operandoa) + parseFloat(operandob)
+} else {
+res = parseFloat(operandob) + parseFloat(operandoa)
+}
+break;
+case "-":
+if (count_clic <= 1) {
+res = parseFloat(operandoa) - parseFloat(operandob)
+} else {
+res = parseFloat(operandoa) - parseFloat(operandob)
+}
 
-  switch (operacion) {
-    case "+":
-      res= parseFloat(operandoa) + parseFloat(operandob)
+break;
+case "*":
+if (count_clic <= 1) {
+res = parseFloat(operandoa) * parseFloat(operandob)
+} else {
+res = parseFloat(operandob) * parseFloat(operandoa)
+}
+break;
+case "/":
+if (count_clic<=1) {
+res = parseFloat(operandoa) / parseFloat(operandob)
+}else{
+res = parseFloat(operandoa) / parseFloat(operandob)
+}
 
-      break;
-    case "-":
-      res = parseFloat(operandoa) - parseFloat(operandob)
 
-      break;
-    case "*":
-      res = parseFloat(operandoa) * parseFloat(operandob)
-      break;
-    case "/":
-      res = parseFloat(operandoa) / parseFloat(operandob)
+break;
+}
 
-      break;
-  }
-  resetear();
 resultado.textContent = res;
 
-if(resultado.innerHTML<8){
-  document.getElementById("display").innerHTML = res;
-}else{
-document.getElementById("display").innerHTML = res.toPrecision(6);
-}
-
-
+display.innerHTML = display.innerHTML.substring(0,8);
 
 }
+
+resetear();
 
 var botones = document.getElementsByClassName("tecla");
 for (let i = 0; i < botones.length; i++) {
@@ -192,5 +218,11 @@ botones[i].addEventListener("mouseup", function () {
 botones[i].setAttribute("style", "transform:scale(1, 1)");
 });
 };
+
+
+
+
+
+
 
 Calculadora.init();
