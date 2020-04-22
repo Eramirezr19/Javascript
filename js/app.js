@@ -2,6 +2,8 @@ var operandoa;
 var operandob;
 var operacion;
 
+
+
 //Creación de las variables para los botones
 var resultado = document.getElementById("display");
 var suma = document.getElementById("mas");
@@ -28,49 +30,75 @@ var Calculadora = {
 
   init: function () {
     //Eventos
-    uno.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"1"
-  }else{
+    uno.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"1"
+    }else{
     resultado.textContent = resultado.textContent + "1";
-  }}
-    dos.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"2"
+    }}}
+    dos.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"2"
     }else{
-      resultado.textContent = resultado.textContent + "2";
-    }}
-    tres.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"3"
+    resultado.textContent = resultado.textContent + "2";
+    }}}
+    tres.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"3"
     }else{
-      resultado.textContent = resultado.textContent + "3";
-    }}
-    cuatro.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"4"
+    resultado.textContent = resultado.textContent + "3";
+    }}}
+    cuatro.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"4"
     }else{
-      resultado.textContent = resultado.textContent + "4";
-    }}
-    cinco.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"5"
+    resultado.textContent = resultado.textContent + "4";
+    }}}
+    cinco.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"5"
     }else{
-      resultado.textContent = resultado.textContent + "5";
-    }}
-    seis.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"6"
+    resultado.textContent = resultado.textContent + "5";
+    }}}
+    seis.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"6"
     }else{
-      resultado.textContent = resultado.textContent + "6";
-    }}
-    siete.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"7"
+    resultado.textContent = resultado.textContent + "6";
+    }}}
+    siete.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"7"
     }else{
-      resultado.textContent = resultado.textContent + "7";
-    }}
-    ocho.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"8"
+    resultado.textContent = resultado.textContent + "7";
+    }}}
+    ocho.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"8"
     }else{
-      resultado.textContent = resultado.textContent + "8";
-    }}
-    nueve.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"9"
+    resultado.textContent = resultado.textContent + "8";
+    }}}
+    nueve.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"9"
     }else{
-      resultado.textContent = resultado.textContent + "9";
-    }}
-    cero.onclick = function (e) { if (resultado.innerHTML=="0") {resultado.textContent=""+"0"
+    resultado.textContent = resultado.textContent + "9";
+    }}}
+    cero.onclick = function (e) {
+    if (resultado.textContent.length<8) {
+      if (resultado.innerHTML=="0") {resultado.textContent=""+"0"
     }else{
-      resultado.textContent = resultado.textContent + "0";
-    }}
+    resultado.textContent = resultado.textContent + "0";
+    }}}
 
     punto.onclick = function (e) {
-      resultado.textContent = resultado.textContent + ".";
+      if(resultado.textContent==="0"){
+      resultado.textContent+=".";
+    }else if(resultado.textContent.indexOf(".")!=-1){
+      resultado.textContent+="";
+      }else{
+      resultado.textContent+=".";
+      }
     }
     reset.onclick = function (e) { if(resultado.innerHTML!="0"){resultado.textContent="0"}else {
       resetear();
@@ -101,6 +129,21 @@ var Calculadora = {
       operandob = resultado.textContent;
       resolver();
     }
+
+    signo.onclick = function(e){
+      if(signo && resultado.innerHTML != "0"){
+          resultado.innerHTML = "-" + resultado.innerHTML
+          }else{
+          resultado.innerHTML = resultado.innerHTML.slice(-1);
+          }
+
+    }
+
+
+
+
+
+
 
   }
 }
@@ -134,8 +177,24 @@ function resolver() {
       break;
   }
   resetear();
-resultado.textContent = res;
+resultado.textContent.toPrecision(8) = res;
 
 }
+
+var botones = document.getElementsByClassName("tecla");
+for (let i = 0; i < botones.length; i++) {
+botones[i].addEventListener("mousedown", function () {
+botones[i].style.transform = "scale(.95, .95)";
+});
+botones[i].addEventListener("mouseup", function () {
+botones[i].setAttribute("style", "transform:scale(1, 1)");
+});
+};
+
+
+
+
+
+
 
 Calculadora.init();
