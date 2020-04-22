@@ -136,14 +136,7 @@ var Calculadora = {
           }else{
           resultado.innerHTML = resultado.innerHTML.slice(-1);
           }
-
     }
-
-
-
-
-
-
 
   }
 }
@@ -179,7 +172,15 @@ function resolver() {
   }
   resetear();
 resultado.textContent = res;
-document.getElementById("display").innerHTML = res.toPrecision(8);
+
+if(resultado.innerHTML<8){
+  document.getElementById("display").innerHTML = res;
+}else{
+document.getElementById("display").innerHTML = res.toPrecision(6);
+}
+
+
+
 }
 
 var botones = document.getElementsByClassName("tecla");
@@ -191,11 +192,5 @@ botones[i].addEventListener("mouseup", function () {
 botones[i].setAttribute("style", "transform:scale(1, 1)");
 });
 };
-
-
-
-
-
-
 
 Calculadora.init();
